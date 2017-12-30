@@ -5,32 +5,23 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<script src="assets/javascript/game.js"></script>
 	<title>Psychic Game</title>
 </head>
 
 <body>
-	<h1>The Psychic Game</h1>
-
-<br>
-
-	<p>Guess what letter I'm thinking of</p>
-
-<br>
-
-	<p id="wins">Wins:</p>
-
-<br>
-
-	<p id="losses">Losses:</p>
-
-<br>
-
-	<p id="guessLeft">Guesses Left:</p>
-
-<br>
-
-	<p id="userGuess">Your Guesses So Far:</p>
-
+<!-- The title of the page -->
+ <h1>The Psychic Game</h1>
+  
+  	<p>Guess what letter I'm thinking of...<img src="assets/images/homer.png"</p>
+ 	<!-- This is where we will have the win counter in HTML. It initially shows 0  -->
+  	<p>Wins: <span id="wins">0</span></p>
+  	<!-- This is where we will have the loss counter in HTML. It initially shows 0 -->
+ 	<p>Losses: <span id="losses">0</span></p>
+  	<!-- This is where we will post the guessesLeft. Initially nothing is shown. -->
+  	<p>Guesses Left: <span id="guesses-left"></span></p>
+  	<!-- This is where we will post the guessesSoFar. Initially nothing is shown. -->
+ 	 <p>Your Guesses so far: <span id="guesses-so-far"></span></p>
+	
+	<script src="assets/javascript/game.js"></script>
 </body>
 </html>

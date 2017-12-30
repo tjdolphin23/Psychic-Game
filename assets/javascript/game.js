@@ -1,36 +1,69 @@
-var computerChoices = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+ // We're creating a list of letters
+var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+// This array will hold what we guess
+var guessedLetters = [];
+// This variable will be randomly assigned one of the three letters
+var letterToGuess = null;
+// This is what we'll use to count down
+var guessesLeft = 9;
+// This is the counter for wins/losses
 var wins = 0;
 var losses = 0;
-var guessLeft = 9;
-var userGuess = [""]; 
+// Below we created three functions to updateGuesses, updateGuessesLeft, and updateGuessesSoFar
+var updateGuessesLeft = function() {
+      // Here we are grabbing the HTML element and setting it equal to the guessesLeft.
+      // (i.e. guessesLeft will get displayed in HTML)
+      document.querySelector("#guesses-left").innerHTML = guessesLeft;
+};
 
+var updateLetterToGuess = function() {
+      // Here we get a random letterToGuess and assign it based on a random generator 
+      letterToGuess = letters[Math.floor(Math.random() * letters.length)];
+};
 
+var updateGuessesSoFar = function() {
+      // Here we take the guesses the user has tried -- then display it as letters separated by commas.
+      document.querySelector("#guesses-so-far").innerHTML = guessedLetters.join(", ");
+};
 
+// Function will be called when we reset everything
+var reset = function() {
+guessesLeft = 9;
+guessedLetters = [];
+updateLetterToGuess();
+updateGuessesLeft();
+updateGuessesSoFar();
+};
+
+// Execute on page load.
+updateLetterToGuess();
+updateGuessesLeft();
+
+// This function will capture the keyboard clicks.
 document.onkeyup = function(event) {
-var userGuess = event.key;
-      var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-      var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-      console.log(userGuess);
-      console.log(computerGuess);
-
-for (var i = 0; i < computerGuess.length; i++); {
-
-      if (userGuess !== computerGuess) {
-            guessLeft--;
-
-      if (userGuess == computerGuess) {
+      // It's going to reduce the guesses by one
+      guessesLeft--;
+      // Lowercase the letter
+      var letter = String.fromCharCode(event.keyCode).toLowerCase();
+      // Then add the guess to the guessedLetters array
+      guessedLetters.push(letter);
+      // Then its going to run the update functions
+  updateGuessesLeft();
+  updateGuessesSoFar();
+      // We'll check if there's a match.
+       if (letter === letterToGuess) {
+        // If there is then we win and we'll update the HTML to display the win.
             wins++;
-            
-      	
-      } if (guessLeft <= 0) {
-      	losses++;
-      
+        document.querySelector("#wins").innerHTML = wins;
+        // Then we'll reset the game
+  reset();
       }
-};
-
-       document.getElementById('wins').innerHTML = "Wins: " + wins;
-       document.getElementById('losses').innerHTML = "losses: " + losses;
-       document.getElementById('guessLeft').innerHTML = "Guesses left: " + guessLeft;
-       document.getElementById("userGuess").innerHTML = "Your Guesses so far: " + userGuess;
- };
-};
+      // If we are out of guesses...
+      if (guessesLeft === 0) {
+        // Then we will loss and we'll update the HTML to display the loss.
+        losses++;
+        document.querySelector("#losses").innerHTML = losses;
+        // Then we'll call the reset.
+        reset();
+      }
+    };
